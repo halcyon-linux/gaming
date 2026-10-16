@@ -105,11 +105,15 @@ mock -r /tmp/copr.cfg <srpm>
     policy). Codec-enabled VA-API is RPM Fusion's `mesa-freeworld`; it
     conflicts with this repo's priority=1 and that trade-off is documented
     in `repo/gaming.repo`.
-  - Release optimization: `-Dbuildtype=release -Db_ndebug=true`. LTO stays
-    off (the spec comment links the bug).
+  - Build optimization: Fedora's hardened `-O2` CFLAGS (the meson macro
+    pins the plain buildtype — passing a buildtype argument breaks the
+    build: meson rejects the duplicate and the macro cannot be overridden)
+    plus `-Db_ndebug=true` for asserts off. LTO stays off (the spec comment
+    links the bug).
   - No performance patches on top of upstream: the 2026-10 research found
     no gaming distro applying mesa performance patches today — "optimized"
-    here means release buildtype, asserts off, and the codec/driver choices.
+    here means Fedora's hardened CFLAGS, asserts off, and the codec/driver
+    choices.
 - **Spec conventions** (terra-style, differ from Fedora defaults):
   - full URLs in `Source*` entries — the submit job's `spectool -g`
     fetches them before `rpmbuild -bs`; keep downloads out of `%prep`.

@@ -29,8 +29,9 @@ applications · fonts · texlive-packages · linux-p03.
   the newest main commit; `Version` runs `27.0.0^N.git<shortcommit>`, and the
   caret keeps every snapshot sorting above upstream's own release of that
   base version.
-- A release-optimized build: `buildtype=release`, asserts off, LTO off (LTO
-  breaks games — the spec comment links the bug).
+- A Fedora-flags build with the gaming knobs the macro cannot express:
+  asserts off (`b_ndebug=true`), LTO off (LTO breaks games — the spec comment
+  links the bug).
 - Intel + AMD: radeonsi/RADV, iris/ANV + hasvk, crocus, i915, zink,
   llvmpipe/lavapipe, virgl/venus, VA-API — plus the 32-bit half in the i386
   chroot for Steam/Proton multilib.

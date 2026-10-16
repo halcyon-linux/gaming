@@ -210,8 +210,10 @@ The drivers with support for the Vulkan API.
 cp %{SOURCE1} docs/
 
 %build
+# No buildtype argument: Fedora's meson macro pins plain on purpose (the
+# distro -O2 + hardening CFLAGS are the optimization policy), and meson
+# rejects a duplicate; b_ndebug=true switches mesa's own runtime asserts off.
 %meson \
-  -Dbuildtype=release \
   -Db_ndebug=true \
   -Dplatforms=x11,wayland \
   -Dgallium-drivers=llvmpipe,virgl,crocus,i915,iris,radeonsi,zink \
@@ -379,4 +381,4 @@ ln -s libGLX_mesa.so.0 %{buildroot}%{_libdir}/libGLX_system.so.0
 %changelog
 * Fri Oct 16 2026 halcyon-autoupdate <aahsnr041@proton.me> - 27.0.0^1.git25947cfd-1
 - initial snapshot of mesa main (commit 25947cfdf2dd54e26fb99815ef4638cba48ce238); Fedora spec
-  base trimmed to Intel + AMD, release buildtype with asserts off, no LTO
+  base trimmed to Intel + AMD, asserts off, no LTO
