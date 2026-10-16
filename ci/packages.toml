@@ -10,8 +10,8 @@
 # to the project repo, so a package may rely on anything built in a lower
 # batch. Packages inside one batch must therefore never depend on each other.
 #
-# batch 0  every package — the registry holds mesa-git alone, so the whole
-#          registry builds in one (long) wave.
+# batch 0  every package — nothing here BuildRequires another registry
+#          entry, so the whole registry builds in one (long) wave.
 # The optional [pkg.updates] table drives the daily sweep (update.yml):
 #   feed = "custom"          feeds.custom.custom_<name>() — the ported logic
 # Packages without an [pkg.updates] table are never swept.
@@ -29,3 +29,15 @@ batch = 0
 [mesa-git.updates]
 feed = "custom"
 custom = "mesa-git"
+
+# ------------------------------------------------ protonplus (compat tools)
+
+# protonplus: Vala/GTK4 compatibility tools manager. Follows GitHub
+# *releases* (not tags) — upstream's main branch already carries the next
+# version, so a tag feed would bump ahead of the release.
+[protonplus]
+batch = 0
+
+[protonplus.updates]
+feed = "github-release"
+repo = "Vysp3r/ProtonPlus"

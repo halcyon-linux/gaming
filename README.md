@@ -3,10 +3,12 @@
 halcyon's gaming snapshot packages — Fedora 44 (+45) RPMs built on
 [Copr](https://copr.fedorainfracloud.org/coprs/aahsnr-work/gaming/).
 
-Currently **mesa-git**: the tip of upstream
+Currently **mesa-git** — the tip of upstream
 [mesa](https://gitlab.freedesktop.org/mesa/mesa) main, Intel + AMD only,
-built as a drop-in replacement for Fedora's mesa. The binary packages keep
-the `mesa-*` names, so enabling this repo with priority=1 upgrades Fedora's
+built as a drop-in replacement for Fedora's mesa — and **protonplus**, the
+[ProtonPlus](https://github.com/Vysp3r/ProtonPlus) compatibility tools
+manager built from its release tags. The mesa binary packages keep the
+`mesa-*` names, so enabling this repo with priority=1 upgrades Fedora's
 mesa in place:
 
 ```
@@ -46,7 +48,8 @@ applications · fonts · texlive-packages · linux-p03.
   variable (kill-switch; `workflow_dispatch` bypasses it). PRs validate
   only.
 - `update.yml` — the weekly version sweep (Monday 04:17 UTC, plus manual
-  dispatch) re-pins mesa-git to the newest main commit. Deliberately no
+  dispatch) re-pins mesa-git to the newest main commit and protonplus to
+  its newest GitHub release. Deliberately no
   workflow_run chain: mesa main moves all day and sweeping after every build
   would chase the tip forever.
 - `builder-docker.yml` — builds this repo's own CI job image and pushes it
@@ -58,6 +61,7 @@ applications · fonts · texlive-packages · linux-p03.
 ## Layout
 
 - `pkgs/mesa-git/` — the spec (+ the MLAA license email it ships as doc)
+- `pkgs/protonplus/` — the spec (release-tag tracking)
 - `ci/packages.toml` — the registry: batch + sweep feed. A package without
   an entry is never built.
 - `ci/matrix.py` — build selection; `ci/sweep/` — the version sweeper
