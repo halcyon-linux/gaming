@@ -384,6 +384,7 @@ ln -s libGLX_mesa.so.0 %{buildroot}%{_libdir}/libGLX_system.so.0
 %{_datadir}/drirc.d/00-venus-defaults.conf
 %{_libdir}/libvulkan_radeon.so
 %{_datadir}/drirc.d/00-radv-defaults.conf
+%{_datadir}/drirc.d/01-radv-performance.conf
 %{_datadir}/vulkan/icd.d/radeon_icd.*.json
 %ifarch %{ix86} x86_64
 %{_libdir}/libvulkan_intel.so
