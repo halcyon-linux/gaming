@@ -1,0 +1,42 @@
+# gaming Copr repo — halcyon's snapshot packages (mesa-git).
+#
+# Enable with:  install -Dm644 repo/gaming.repo /etc/yum.repos.d/
+# (or `dnf copr enable aahsnr-work/gaming fedora-44` and merge the priority=1
+# line — and the i386 stanza — into the generated file: the copr plugin does
+# neither).
+#
+# priority=1 (dnf: lower number wins; Fedora defaults to 99) makes the mesa-*
+# packages this project builds shadow Fedora's mesa — that is the point:
+# mesa-git is a drop-in replacement. Everything this repo does not build still
+# resolves from Fedora. Do not combine with RPM Fusion's mesa-freeworld:
+# codec-enabled VA-API (h264/h265) is that repo's job (see AGENTS.md).
+#
+# The i386 stanza carries the 32-bit half that Steam/Proton multilib needs.
+# Copr publishes i386-chroot results into their own tree (the x86_64 tree has
+# no i686 packages), so a multilib consumer needs both stanzas.
+
+[copr:copr.fedorainfracloud.org:aahsnr-work:gaming]
+name=Copr repo for gaming (aahsnr-work) — priority 1
+baseurl=https://download.copr.fedorainfracloud.org/results/aahsnr-work/gaming/fedora-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=False
+gpgcheck=1
+gpgkey=https://download.copr.fedorainfracloud.org/results/aahsnr-work/gaming/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+priority=1
+includepkgs=mesa-*
+
+[copr:copr.fedorainfracloud.org:aahsnr-work:gaming-i386]
+name=Copr repo for gaming (aahsnr-work) — priority 1 (multilib)
+baseurl=https://download.copr.fedorainfracloud.org/results/aahsnr-work/gaming/fedora-$releasever-i386/
+type=rpm-md
+skip_if_unavailable=False
+gpgcheck=1
+gpgkey=https://download.copr.fedorainfracloud.org/results/aahsnr-work/gaming/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+priority=1
+includepkgs=mesa-*

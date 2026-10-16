@@ -1,0 +1,9 @@
+# local build outputs (rpmbuild -bs scratch, copr-build smoke tests)
+_srpms/
+tmp/
+# local work artefacts
+*.tar.gz
+*.tar.bz2
+*.rpm
+*.zst
+__pycache__/
