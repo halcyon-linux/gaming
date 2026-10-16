@@ -12,7 +12,7 @@
 #
 # batch 0  every package — nothing here BuildRequires another registry
 #          entry, so the whole registry builds in one (long) wave.
-# The optional [pkg.updates] table drives the daily sweep (update.yml):
+# The optional [pkg.updates] table drives the weekly sweep (update.yml):
 #   feed = "custom"          feeds.custom.custom_<name>() — the ported logic
 # Packages without an [pkg.updates] table are never swept.
 

@@ -1,4 +1,4 @@
-# gaming Copr repo — halcyon's snapshot packages (mesa-git).
+# gaming Copr repo — halcyon's snapshot packages (mesa-git, protonplus).
 #
 # Enable with:  install -Dm644 repo/gaming.repo /etc/yum.repos.d/
 # (or `dnf copr enable aahsnr-work/gaming fedora-44` and merge the priority=1
@@ -10,6 +10,9 @@
 # mesa-git is a drop-in replacement. Everything this repo does not build still
 # resolves from Fedora. Do not combine with RPM Fusion's mesa-freeworld:
 # codec-enabled VA-API (h264/h265) is that repo's job (see AGENTS.md).
+#
+# The includepkgs filters below must list every package this repo ships —
+# update them whenever ci/packages.toml gains one.
 #
 # The i386 stanza carries the 32-bit half that Steam/Proton multilib needs.
 # Copr publishes i386-chroot results into their own tree (the x86_64 tree has
@@ -26,7 +29,7 @@ repo_gpgcheck=0
 enabled=1
 enabled_metadata=1
 priority=1
-includepkgs=mesa-*
+includepkgs=mesa-*,protonplus
 
 [copr:copr.fedorainfracloud.org:aahsnr-work:gaming-i386]
 name=Copr repo for gaming (aahsnr-work) — priority 1 (multilib)
@@ -39,4 +42,4 @@ repo_gpgcheck=0
 enabled=1
 enabled_metadata=1
 priority=1
-includepkgs=mesa-*
+includepkgs=mesa-*,protonplus
