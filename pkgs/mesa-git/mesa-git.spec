@@ -46,6 +46,12 @@ Source0:        %{url}/-/archive/%{commit}/mesa-%{commit}.tar.gz
 # Source1 contains email correspondence clarifying the license terms.
 # We opt to ignore the optional part of clause 2 and treat that code as 2-clause BSD.
 Source1:        Mesa-MLAA-License-Clarification-Email.txt
+# venus (Vulkan on virtio-gpu) builds against the venus-protocol subproject,
+# which its wrap would fetch from git at configure time; that cannot work in
+# an offline build, so vendor the pinned revision. Keep the pin level with
+# subprojects/venus-protocol.wrap: mesa checks version == 1.1.3 and fails
+# loudly at configure when they drift.
+Source2:        https://gitlab.freedesktop.org/virgl/venus-protocol/-/archive/v1.1.3/venus-protocol-v1.1.3.tar.gz
 
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc
@@ -208,6 +214,11 @@ The drivers with support for the Vulkan API.
 %prep
 %autosetup -n mesa-%{commit}
 cp %{SOURCE1} docs/
+
+# the venus-protocol.wrap declares directory = venus-protocol-1.1.3; meson
+# uses a present subproject directory instead of downloading it
+tar -xzf %{SOURCE2} -C subprojects/
+mv subprojects/venus-protocol-v1.1.3 subprojects/venus-protocol-1.1.3
 
 %build
 # No buildtype argument: Fedora's meson macro pins plain on purpose (the

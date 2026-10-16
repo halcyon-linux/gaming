@@ -117,6 +117,11 @@ mock -r /tmp/copr.cfg <srpm>
 - **Spec conventions** (terra-style, differ from Fedora defaults):
   - full URLs in `Source*` entries — the submit job's `spectool -g`
     fetches them before `rpmbuild -bs`; keep downloads out of `%prep`.
+  - `Source2` vendors venus-protocol (its wrap would git-fetch the subproject
+    at configure time, impossible offline). Keep the pin level with
+    `subprojects/venus-protocol.wrap` — mesa checks version == 1.1.3, and a
+    mesa bump that moves the wrap fails loudly at configure: bump the Source2
+    URL and the `%prep` mv target together.
   - explicit `Release: N%{?dist}` + a written `%changelog` — no
     rpmautospec/`%autorelease`.
   - **never mention macros textually in comments** — rpm expands macros
