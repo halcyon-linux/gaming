@@ -99,6 +99,10 @@ BuildRequires:  pkgconfig(libva) >= 0.38.0
 BuildRequires:  pkgconfig(libelf)
 BuildRequires:  pkgconfig(libglvnd) >= 1.3.2
 BuildRequires:  llvm-devel >= 7.0.0
+# mesa main's Intel drivers build through the CLC compiler path, which needs
+# the clang libraries plus the SPIR-V translator matching the LLVM version
+BuildRequires:  clang-devel
+BuildRequires:  pkgconfig(LLVMSPIRVLib)
 BuildRequires:  pkgconfig(SPIRV-Tools)
 BuildRequires:  python3-devel
 BuildRequires:  python3-mako
@@ -244,6 +248,7 @@ mv subprojects/venus-protocol-v1.1.3 subprojects/venus-protocol-1.1.3
 %else
   -Dintel-rt=disabled \
 %endif
+  -Dmicrosoft-clc=disabled \
   -Dllvm=enabled \
   -Dshared-llvm=enabled \
   -Dvalgrind=%{?with_valgrind:enabled}%{!?with_valgrind:disabled} \

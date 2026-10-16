@@ -105,6 +105,11 @@ mock -r /tmp/copr.cfg <srpm>
     policy). Codec-enabled VA-API is RPM Fusion's `mesa-freeworld`; it
     conflicts with this repo's priority=1 and that trade-off is documented
     in `repo/gaming.repo`.
+  - Intel drivers in mesa main build through the CLC compiler path: hence
+    `clang-devel` + `pkgconfig(LLVMSPIRVLib)` (with `-Dshared-llvm=enabled`
+    that stays `libclang-cpp`), and `-Dmicrosoft-clc=disabled` is
+    load-bearing — left auto, it enables the DXIL path and demands rusticl's
+    `libclc`, which this trim does not ship.
   - Build optimization: Fedora's hardened `-O2` CFLAGS (the meson macro
     pins the plain buildtype — passing a buildtype argument breaks the
     build: meson rejects the duplicate and the macro cannot be overridden)
