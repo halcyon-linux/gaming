@@ -17,10 +17,10 @@
 # policy; RPM Fusion's mesa-freeworld remains the codec route.
 
 %global mesa_base 27.0.0
-%global commit c823a83e8f373a5c36c2b9ed1d7dc98a4f3360ee
+%global commit 25e1e2397727e2534ee2950f298a2a7993f06e69
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commit_date Sun Oct 18 16:10:33 2026
-%global bumpver 3
+%global commit_date Mon Oct 19 09:24:00 2026
+%global bumpver 4
 
 %ifarch %{valgrind_arches}
 %bcond_without valgrind
