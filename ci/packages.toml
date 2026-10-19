@@ -41,3 +41,20 @@ batch = 0
 [protonplus.updates]
 feed = "github-release"
 repo = "Vysp3r/ProtonPlus"
+
+# ------------------------------------- heroic-games-launcher (game launcher)
+
+# heroic-games-launcher: vendor-RPM rewrap (upstream ships
+# Heroic-<ver>-linux-x86_64.rpm with every release). x86_64 only — the
+# payload is an amd64 Electron build, so Copr marks the i386 chroots
+# skipped (ExclusiveArch) and the build still reports succeeded. Version
+# follows GitHub *releases* — a rewrap can only bump to a version whose
+# assets exist — and custom_heroic_games_launcher also re-pins the bundled
+# legendary/gogdl/nile/comet globals from the tag's
+# meta/downloadHelperBinaries.ts.
+[heroic-games-launcher]
+batch = 0
+
+[heroic-games-launcher.updates]
+feed = "custom"
+custom = "heroic-games-launcher"

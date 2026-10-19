@@ -1,4 +1,5 @@
-# gaming Copr repo — halcyon's snapshot packages (mesa-git, protonplus).
+# gaming Copr repo — halcyon's snapshot packages (mesa-git, protonplus,
+# heroic-games-launcher).
 #
 # Enable with:  install -Dm644 repo/gaming.repo /etc/yum.repos.d/
 # (or `dnf copr enable aahsnr-work/gaming fedora-44` and merge the priority=1
@@ -16,7 +17,9 @@
 #
 # The i386 stanza carries the 32-bit half that Steam/Proton multilib needs.
 # Copr publishes i386-chroot results into their own tree (the x86_64 tree has
-# no i686 packages), so a multilib consumer needs both stanzas.
+# no i686 packages), so a multilib consumer needs both stanzas. x86_64-only
+# packages (heroic-games-launcher) come out of the i386 chroots as Copr
+# "skipped" — the stanza simply carries no i686 packages for them.
 
 [copr:copr.fedorainfracloud.org:aahsnr-work:gaming]
 name=Copr repo for gaming (aahsnr-work) — priority 1
@@ -29,7 +32,7 @@ repo_gpgcheck=0
 enabled=1
 enabled_metadata=1
 priority=1
-includepkgs=mesa-*,protonplus
+includepkgs=mesa-*,protonplus,heroic-games-launcher
 
 [copr:copr.fedorainfracloud.org:aahsnr-work:gaming-i386]
 name=Copr repo for gaming (aahsnr-work) — priority 1 (multilib)
@@ -42,4 +45,4 @@ repo_gpgcheck=0
 enabled=1
 enabled_metadata=1
 priority=1
-includepkgs=mesa-*,protonplus
+includepkgs=mesa-*,protonplus,heroic-games-launcher
