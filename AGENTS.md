@@ -1,7 +1,8 @@
 # AGENTS.md
 
-RPM source repo for **halcyon gaming snapshots** — currently mesa-git, the
-mesa main-branch tip for Intel + AMD. A sibling of the six halcyon group
+RPM source repo for **halcyon gaming snapshots** — currently mesa-git (the
+mesa main-branch tip for Intel + AMD), protonplus and heroic-games-launcher.
+A sibling of the six halcyon group
 repositories (base-pkgs, cli-tools, applications, fonts, texlive-packages,
 linux-p03); its own GitHub repo under
 [halcyon-linux](https://github.com/orgs/halcyon-linux/repositories) and its
@@ -119,6 +120,23 @@ mock -r /tmp/copr.cfg <srpm>
     no gaming distro applying mesa performance patches today — "optimized"
     here means Fedora's hardened CFLAGS, asserts off, and the codec/driver
     choices.
+- **heroic-games-launcher specifics**:
+  - Vendor-RPM rewrap on the applications repo's ferdium pattern: the
+    released vendor RPM is unpacked with rpm2cpio and repackaged
+    byte-identically (the full nil set), with /usr/bin launchers, the vendor
+    desktop Exec line rewritten to them, license texts consolidated under
+    /usr/share/licenses, and the SUID chrome-sandbox Electron's setuid
+    sandbox path needs.
+  - `ExclusiveArch: x86_64` (an amd64 Electron payload): Copr marks the i386
+    chroots skipped (with that reason) and the build still reports
+    `succeeded` — that is the expected shape, not a failure.
+  - The sweep keys off the newest GitHub *release* tag — a rewrap can only
+    bump to a version whose release assets exist — and re-pins the four
+    bundled-binary globals from the tag's meta/downloadHelperBinaries.ts;
+    they feed the bundled(...) Provides. legendary and gogdl are python
+    zipapps, hence the python3 Requires.
+  - A same-version upstream asset re-upload ("Hotfix N" under an existing
+    tag) does not move the sweep — hand-bump Release if it ever matters.
 - **Spec conventions** (terra-style, differ from Fedora defaults):
   - full URLs in `Source*` entries — the submit job's `spectool -g`
     fetches them before `rpmbuild -bs`; keep downloads out of `%prep`.

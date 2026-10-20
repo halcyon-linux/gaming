@@ -2,8 +2,8 @@
 that carry real logic (the other 35 are one-liner gh()/gh_tag() sweeps driven
 from ci/packages.toml).
 
-Two intentional deviations from the rhai, both bug fixes (the rhai versions
-never ran successfully):
+Intentional deviations from the rhai: two bug fixes (the rhai versions never
+ran successfully) and one packaging difference:
 
 - hyprland: the rhai referenced an undefined `old_tag` (it would abort) and
   rewrote the commit date with a whole-spec string substitution (which
@@ -666,3 +666,27 @@ def custom_mesa_git(spec: SpecFile, pkg_dir: Path) -> None:
         spec.set_global("bumpver", "1")
     else:
         spec.set_global("bumpver", str(_parse_int(spec.get_global("bumpver")) + 1))
+
+
+def custom_heroic_games_launcher(spec: SpecFile, pkg_dir: Path) -> None:
+    # port of Terra's update.rhai with one deliberate deviation: the rhai
+    # keyed the version off package.json on main, but the gaming repo
+    # rewraps the released vendor RPM, so this keys off the newest GitHub
+    # *release* tag instead - the release assets must exist to rewrap
+    # (package.json can lead the tag). Like the rhai's rpm.changed() guard,
+    # the bundled-binary globals re-pin only when the version actually
+    # moved; they feed the bundled(...) Provides (legendary and gogdl are
+    # python zipapps).
+    tag = feeds.github_release_tag("Heroic-Games-Launcher/HeroicGamesLauncher")
+    if not spec.set_version(tag):
+        return
+    ts = feeds.fetch_text(
+        "https://raw.githubusercontent.com/Heroic-Games-Launcher/"
+        f"HeroicGamesLauncher/{tag}/meta/downloadHelperBinaries.ts")
+    for name, pattern in (
+        ("legendary_version", r"legendary: '([\d.]+)'"),
+        ("gogdl_version", r"gogdl: 'v([\d.]+)'"),
+        ("nile_version", r"nile: 'v([\d.]+)'"),
+        ("comet_version", r"comet: 'v([\d.]+)'"),
+    ):
+        spec.set_global(name, feeds.find_group(pattern, ts))
