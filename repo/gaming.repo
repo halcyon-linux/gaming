@@ -1,4 +1,4 @@
-# gaming Copr repo — halcyon's snapshot packages (mesa-git, protonplus,
+# gaming Copr repo — halcyon's snapshot packages (protonplus,
 # heroic-games-launcher).
 #
 # Enable with:  install -Dm644 repo/gaming.repo /etc/yum.repos.d/
@@ -6,11 +6,9 @@
 # line — and the i386 stanza — into the generated file: the copr plugin does
 # neither).
 #
-# priority=1 (dnf: lower number wins; Fedora defaults to 99) makes the mesa-*
-# packages this project builds shadow Fedora's mesa — that is the point:
-# mesa-git is a drop-in replacement. Everything this repo does not build still
-# resolves from Fedora. Do not combine with RPM Fusion's mesa-freeworld:
-# codec-enabled VA-API (h264/h265) is that repo's job (see AGENTS.md).
+# priority=1 (dnf: lower number wins; Fedora defaults to 99) makes the
+# packages this project builds win over any same-name package elsewhere.
+# Everything this repo does not build still resolves from Fedora.
 #
 # The includepkgs filters below must list every package this repo ships —
 # update them whenever ci/packages.toml gains one.
@@ -32,7 +30,7 @@ repo_gpgcheck=0
 enabled=1
 enabled_metadata=1
 priority=1
-includepkgs=mesa-*,protonplus,heroic-games-launcher
+includepkgs=protonplus,heroic-games-launcher
 
 [copr:copr.fedorainfracloud.org:aahsnr-work:gaming-i386]
 name=Copr repo for gaming (aahsnr-work) — priority 1 (multilib)
@@ -45,4 +43,4 @@ repo_gpgcheck=0
 enabled=1
 enabled_metadata=1
 priority=1
-includepkgs=mesa-*,protonplus,heroic-games-launcher
+includepkgs=protonplus,heroic-games-launcher

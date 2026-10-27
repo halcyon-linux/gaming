@@ -5,7 +5,7 @@
 # repoclosure against EVERYTHING published in this repository's Copr project and
 # fail if any RPM's dependencies cannot resolve against Fedora 44/45. This
 # catches what per-package builds cannot: a package whose runtime Requires
-# nothing satisfies — a mesa-git needing a newer lib than Fedora 44 carries,
+# nothing satisfies — a package needing a newer lib than Fedora 44 carries,
 # a bumped-away dependency.
 #
 # The repo drop-in is the checked-in repo/gaming.repo (the consumer
@@ -206,7 +206,7 @@ jobs:
           # The drop-in's priority=1 picks one winner per name over Fedora
           # and updates, but dnf5's --newest/--best prune the pool to
           # the newest package per name BEFORE matching and never look at that
-          # priority: a same-name copy elsewhere (a newer mesa build in a
+          # priority: a same-name copy elsewhere (a newer build in a
           # side repo) is kept instead of this repo's, and the
           # exact-EQ pins within this repo then read as unresolved. A consumer
           # never sees that, so hand repoclosure the pool a consumer gets:

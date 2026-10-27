@@ -21,8 +21,8 @@
 # version, so main-line failures are self-healing).
 #
 # The registry holds batch 0 alone, so this file carries exactly one
-# submit/wait wave. Mesa builds are long (four chroots: fedora-44/45 ×
-# x86_64/i386) — wait0's 330-minute ceiling is what the four-hour build needs.
+# submit/wait wave. Each build fans out to four chroots (fedora-44/45 ×
+# x86_64/i386); wait0's 330-minute ceiling is generous headroom for that.
 name: copr-build
 
 on:
@@ -228,8 +228,7 @@ jobs:
           mkdir -p "_srpms/$NAME"
           spectool -g -C "_srpms/$NAME" "$spec"
           # spectool fetches only URL sources; local (non-URL) Source/Patch
-          # entries (mesa's MLAA license email) live in the package dir and
-          # go into the sourcedir verbatim
+          # entries live in the package dir and go into the sourcedir verbatim
           cp -a "pkgs/$NAME/." "_srpms/$NAME/"
           srpm=$(rpmbuild -bs \
               --define "_sourcedir $PWD/_srpms/$NAME" \

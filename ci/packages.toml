@@ -11,24 +11,10 @@
 # batch. Packages inside one batch must therefore never depend on each other.
 #
 # batch 0  every package — nothing here BuildRequires another registry
-#          entry, so the whole registry builds in one (long) wave.
-# The optional [pkg.updates] table drives the weekly sweep (update.yml):
-#   feed = "custom"          feeds.custom.custom_<name>() — the ported logic
+#          entry, so the whole registry builds in one wave.
+# The optional [pkg.updates] table drives the daily sweep (update.yml):
+#   feed = "custom"          custom_<name>() in ci/sweep/custom.py
 # Packages without an [pkg.updates] table are never swept.
-
-# -------------------------------------------------------- mesa (Intel + AMD)
-
-# mesa-git: main-branch snapshot of mesa/mesa (gitlab.freedesktop.org, the
-# canonical repo), built as a drop-in replacement for Fedora's mesa — the
-# binary packages keep the mesa-* names, so the repo's priority=1 makes them
-# shadow Fedora's mesa once enabled. Version goes
-# <base>^<bumpver>.git<shortcommit>; see custom_mesa_git in ci/sweep/custom.py.
-[mesa-git]
-batch = 0
-
-[mesa-git.updates]
-feed = "custom"
-custom = "mesa-git"
 
 # ------------------------------------------------ protonplus (compat tools)
 

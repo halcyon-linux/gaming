@@ -21,13 +21,11 @@
 name: update
 
 on:
-  # weekly cron only — deliberately NO workflow_run chain here (unlike the
-  # group repos): mesa main moves all day long, so sweeping after every build
-  # would chase the tip in a perpetual rebuild loop. The weekly floor (plus
-  # workflow_dispatch) is the snapshot cadence; each sweep re-pins the tip it
-  # sees at that moment.
+  # daily: every package here follows upstream releases, so a new release
+  # reaches Copr within a day. No workflow_run chain — a sweep after every
+  # build would only re-check the same feeds.
   schedule:
-    - cron: "17 04 * * 1"
+    - cron: "17 04 * * *"
   workflow_dispatch:
     inputs:
       mode:

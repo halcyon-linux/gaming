@@ -13,7 +13,7 @@ rebuild the changed packages plus every higher batch.
 Feed types:
   github-release  latest GitHub release tag of `repo` (leading v stripped)
   github-tag      newest git tag of `repo` (releases or not)
-  custom          feeds.custom.custom_<name>() — the ported rhai logic
+  custom          custom.custom_<name>() in ci/sweep/custom.py
 Packages without an [pkg.updates] table are never swept.
 
 Usage:
