@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 RPM source repo for halcyon's gaming packages, built on Fedora Copr
 (`aahsnr-work/gaming`, chroots fedora-44/45 × x86_64 + i386). The repo holds
